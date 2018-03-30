@@ -1,4 +1,4 @@
-package cz.microshop.orders;
+package cz.microshop.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

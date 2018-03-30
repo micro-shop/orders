@@ -1,4 +1,4 @@
-package cz.microshop.orders;
+package cz.microshop.cart;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

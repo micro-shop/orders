@@ -1,4 +1,4 @@
-package cz.microshop.orders.config;
+package cz.microshop.order.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

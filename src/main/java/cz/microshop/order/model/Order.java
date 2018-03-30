@@ -1,39 +1,37 @@
-package cz.microshop.orders.model;
+package cz.microshop.order.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.UUID;
 
 //@JsonIgnoreProperties(ignoreUnknown = true)
 @Document(collection="order")
 public class Order {
     @Id
-    private UUID id;
-    private Integer customerId;
-    private Integer productId;
+    private Long id;
+    private Long customerId;
+    private Long productId;
 
-    public Integer getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 }
