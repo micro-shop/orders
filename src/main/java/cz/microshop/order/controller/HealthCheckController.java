@@ -1,6 +1,6 @@
 package cz.microshop.order.controller;
 
-import cz.microshop.cart.model.HealthCheck;
+import cz.microshop.order.model.HealthCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpStatus;
@@ -22,8 +22,8 @@ public class HealthCheckController  {
         List<HealthCheck> healthChecks = new ArrayList<>();
         Date dateNow = Calendar.getInstance().getTime();
 
-        HealthCheck app = new HealthCheck("cart", "OK", dateNow);
-        HealthCheck database = new HealthCheck("cart-db", "OK", dateNow);
+        HealthCheck app = new HealthCheck("order", "OK", dateNow);
+        HealthCheck database = new HealthCheck("order-db", "OK", dateNow);
 
         try {
             mongoTemplate.executeCommand("{ buildInfo: 1 }");
