@@ -1,37 +1,112 @@
 package cz.microshop.order.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-//@JsonIgnoreProperties(ignoreUnknown = true)
-@Document(collection="order")
+@Entity
+@Table(name="orders")
 public class Order {
-    @Id
-    private Long id;
-    private Long customerId;
-    private Long productId;
 
-    public Long getCustomerId() {
-        return customerId;
-    }
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	private Long orderId;
+	private BigDecimal total;
+	private Long shippingId;
+	private Date createdAt;
+	private Long userId;
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
+	@Enumerated(EnumType.STRING)
+	@Column(name="status", nullable=false)
+	private OrderStatus status;
 
-    public Long getId() {
-        return id;
-    }
+	@OneToMany(mappedBy="order")
+	private List<OrderItem> orderItems;
+	
+	@Transient
+	private BigDecimal totalWithShipping;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Long getProductId() {
-        return productId;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
+	
+	public BigDecimal getTotalWithShipping() {
+		/*this.totalWithShipping = new BigDecimal(this.total.doubleValue() + this.shipping.getPrice().doubleValue());
+		return this.totalWithShipping.setScale(2, RoundingMode.HALF_UP);*/
+		return null;
+	}
+	
+	public Order() {
+		this.orderItems = new ArrayList<OrderItem>();
+	}
+
+	@Override
+	public String toString() {
+		/*return "Order [id=" + id + ", total=" + total + ", shipping=" + shipping + ", createdAt=" + createdAt
+				+ ", user=" + user + ", status=" + status + "]";*/
+		return "";
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Long getShippingId() {
+		return shippingId;
+	}
+
+	public void setShippingId(Long shippingId) {
+		this.shippingId = shippingId;
+	}
+
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/order")
@@ -26,18 +27,18 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Order> save(@RequestBody Order cart)   {
-        return new ResponseEntity<>((Order) orderService.save(cart), HttpStatus.OK);
+    public ResponseEntity<Order> save(@RequestBody Order order)   {
+        return new ResponseEntity<>((Order) orderService.save(order), HttpStatus.OK);
     }
-/*
+
     @RequestMapping(value = "/find", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<Cart> find(@RequestParam Long id)   {
-        return new ResponseEntity<>(cartService.find(id), HttpStatus.OK);
+    public Order find(@RequestParam Long id)   {
+        return orderService.find(id);
     }
 
     @RequestMapping(value = "/findByUserId", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<Cart> find(@RequestParam Long id)   {
-        return new ResponseEntity<>(cartService.find(id), HttpStatus.OK);
-    }*/
+    public List<Order> findByUserId(@RequestParam Long id)   {
+        return orderService.findByUserId(id);
+    }
 
 }
