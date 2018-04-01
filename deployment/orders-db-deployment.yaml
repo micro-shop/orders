@@ -2,19 +2,19 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: cart-db
+  name: orders-db
   labels:
-    name: cart-db
+    name: orders-db
   namespace: default
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        name: cart-db
+        name: orders-db
     spec:
       containers:
-      - name: cart-db
+      - name: orders-db
         image: mongo
         ports:
         - name: mongo
