@@ -41,4 +41,9 @@ public class OrderController {
         return orderService.findByUserId(id);
     }
 
+    @RequestMapping(value = "/findAll", method = RequestMethod.GET, produces = "application/json")
+    public List<Order> findByUserId()   {
+        return orderService.findAll();
+    }
+
 }
