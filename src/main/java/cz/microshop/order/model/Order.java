@@ -2,6 +2,7 @@ package cz.microshop.order.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,18 +16,25 @@ public class Order {
 	private Long id;
 	private Long orderId;
 	private BigDecimal total;
-	private Long shippingId;
+
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-	private Long userId;
+
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="shipping_id")
+	private Shipping shipping;
+
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="user_id")
+	private User user;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="status", nullable=false)
 	private OrderStatus status;
 
-	@OneToMany(mappedBy="order")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems;
-	
-	@Transient
+
 	private BigDecimal totalWithShipping;
 
 	public Long getId() {
@@ -62,36 +70,12 @@ public class Order {
 	}
 	
 	public BigDecimal getTotalWithShipping() {
-		/*this.totalWithShipping = new BigDecimal(this.total.doubleValue() + this.shipping.getPrice().doubleValue());
-		return this.totalWithShipping.setScale(2, RoundingMode.HALF_UP);*/
-		return null;
+		this.totalWithShipping = new BigDecimal(this.total.doubleValue() + this.shipping.getPrice().doubleValue());
+		return this.totalWithShipping.setScale(2, RoundingMode.HALF_UP);
 	}
 	
 	public Order() {
 		this.orderItems = new ArrayList<OrderItem>();
-	}
-
-	@Override
-	public String toString() {
-		/*return "Order [id=" + id + ", total=" + total + ", shipping=" + shipping + ", createdAt=" + createdAt
-				+ ", user=" + user + ", status=" + status + "]";*/
-		return "";
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-	public Long getShippingId() {
-		return shippingId;
-	}
-
-	public void setShippingId(Long shippingId) {
-		this.shippingId = shippingId;
 	}
 
 	public List<OrderItem> getOrderItems() {
@@ -108,5 +92,22 @@ public class Order {
 
 	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setShipping(Shipping shipping) {
+		this.shipping = shipping;
+	}
+
+	public Shipping getShipping() {
+		return shipping;
 	}
 }

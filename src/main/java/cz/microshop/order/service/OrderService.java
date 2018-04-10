@@ -1,6 +1,7 @@
 package cz.microshop.order.service;
 
 import cz.microshop.order.model.Order;
+import cz.microshop.order.repository.OrderItemRepository;
 import cz.microshop.order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ public class OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     public List<Order> findAll() {
         return orderRepository.findAll();
